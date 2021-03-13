@@ -3,14 +3,18 @@ package CLI;
 import java.util.Scanner;
 
 public class CLI {
-    static public String getCommand(String text, String color) {
+    public static String getCommand(String text, String color) {
         System.out.println(color + text);
-        System.out.println();
         Scanner scanner = new Scanner(System.in);
-        return scanner.next();
+        String input = scanner.nextLine();
+        if(input.equals("exit"))
+            System.exit(0);
+        return input;
     }
-    static public void print(String text, String color) {
+    public static void print(String text, String color) {
         System.out.println(color + text);
-        System.out.println();
+    }
+    public static void invalidCommand() {
+        print("Invalid Command", ConsoleColors.RED_BOLD);
     }
 }

@@ -1,12 +1,11 @@
 package pages;
-
-import models.ID;
+import models.User;
 
 public class Settings{
     static void getHelp() {
 
     }
-    static void logic(ID username) {
+    public static void logic(User user) {
 
     }
 }

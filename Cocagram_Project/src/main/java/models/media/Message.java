@@ -1,25 +1,26 @@
 package models.media;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ID;
 import models.User;
 
 import java.io.*;
+import java.util.Objects;
 
-public class Message extends Media{
+public class Message extends Media {
     ID id;
     ID receiver;
 
     private static final File dbDirectory = new File("./src/main/resources/DB/Messages");
 
-    public static Message getByID(ID id)  {
+    public static Message getByID(ID id) {
         try {
             File Data = new File(dbDirectory, id + ".json");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(Data));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             return gson.fromJson(bufferedReader, Message.class);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -46,5 +47,17 @@ public class Message extends Media{
         User.getByID(receiver).addToUnreadMessages(this.id);
         User.getByID(writer).addToMessages(this.id);
         this.saveIntoDB();
+    }
+
+    public ID getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return message.getId().equals(getId());
     }
 }

@@ -1,12 +1,11 @@
 package pages;
-
-import models.ID;
+import models.User;
 
 public class Explorer{
     static void getHelp() {
 
     }
-    static void logic(ID username) {
+    static void logic(User user) {
 
     }
 }

@@ -27,26 +27,26 @@ public class User {
     private List<ID> followers;
     private List<ID> blockList;
     private List<ID> tweets;
-    private List<ID> retweets;
+    private List<String> requestNotifications;
     private List<ID> likedTweets;
     private List<ID> messages;
     private List<ID> unreadMessages;
     private List<ID> requests;
     private List<String> notifications;
-    private List<List<ID>> groups;
     private boolean isPrivate;
+    private List<Group> groups;
+    private List<ID> savedMessages;
 
     private static final File dbDirectory = new File("./src/main/resources/DB/Users");
 
-    public static User getByID(ID id)  {
+    public static User getByID(ID id) {
         try {
             File Data = new File(dbDirectory, id + ".json");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(Data));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             User user = gson.fromJson(bufferedReader, User.class);
             return user;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -65,6 +65,7 @@ public class User {
             e.printStackTrace();
         }
     }
+
     public User(String username, String firstname, String lastname, String bio, LocalDate birthDate, String email, String phoneNumber, String password, boolean publicData, String lastSeenType) {
         //get from user.
         this.username = username;
@@ -90,13 +91,13 @@ public class User {
 
         this.tweets = new ArrayList<>();
         this.likedTweets = new ArrayList<>();
-        this.retweets = new ArrayList<>();
+        this.requestNotifications = new ArrayList<>();
 
         this.messages = new ArrayList<>();
         this.unreadMessages = new ArrayList<>();
-
         this.requests = new ArrayList<>();
         this.notifications = new ArrayList<>();
+        this.savedMessages = new ArrayList<>();
 
         this.saveIntoDB();
     }
@@ -123,5 +124,136 @@ public class User {
 
     public ID getID() {
         return this.id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public List<ID> getTweets() {
+        return tweets;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public boolean isPublicData() {
+        return publicData;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public String getLastSeenType() {
+        return lastSeenType;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+        saveIntoDB();
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+        saveIntoDB();
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+        saveIntoDB();
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+        saveIntoDB();
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+        saveIntoDB();
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        saveIntoDB();
+    }
+
+    public List<String> getNotifications() { return notifications; }
+
+    public List<String> getRequestNotifications() { return requestNotifications; }
+
+    public List<ID> getRequests() { return requests; }
+
+    public void addToFollowings(ID user) {
+        followings.add(user);
+        saveIntoDB();
+    }
+
+    public void addToFollowers(ID user) {
+        followers.add(user);
+        saveIntoDB();
+    }
+
+    public void addToRequestNotifications(String content) {
+        requestNotifications.add(content);
+        saveIntoDB();
+        return;
+    }
+
+    public void removeIndexFromRequests(int idx) {
+        requests.remove(idx);
+        saveIntoDB();
+    }
+
+    public List<Group> getGroups() { return groups; }
+
+    public List<ID> getFollowings() {
+        return followings;
+    }
+
+    public List<ID> getFollowers() {
+        return followers;
+    }
+
+    public List<ID> getBlockList() {
+        return blockList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return user.getID().equals(getID());
     }
 }

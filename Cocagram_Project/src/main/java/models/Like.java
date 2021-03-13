@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import models.media.Tweet;
 
 import java.io.*;
+import java.util.Objects;
 
 public class Like {
     ID id;
@@ -46,5 +47,17 @@ public class Like {
         Tweet.getByID(tweet).addLike(this.id);
         User.getByID(user).addToLikedTweets(tweet);
         this.saveIntoDB();
+    }
+
+    public ID getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Like like = (Like) o;
+        return like.getId().equals(getId());
     }
 }
