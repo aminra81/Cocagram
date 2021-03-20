@@ -1,46 +1,50 @@
-models/media/Media.java
- models.media.Media
-models/media/Message.java
- models.media.Message
-pages/Explorer.java
- pages.Explorer
-CLI/ConsoleColors.java
- CLI.ConsoleColors
-models/ID.java
- models.ID
-pages/Timeline.java
- pages.Timeline
-pages/Messaging.java
- pages.Messaging
 models/Group.java
  models.Group
-models/Like.java
- models.Like
-models/User.java
- models.User
-pages/ShowPage.java
- pages.ShowPage
-pages/Settings.java
- pages.Settings
-models/media/Tweet.java
- models.media.Tweet
-pages/EnterPage/SignUp.java
- pages.EnterPage.SignUp
+models/ID.java
+ models.ID
 CLI/CLI.java
  CLI.CLI
-pages/EnterPage/EnterPage.java
- pages.EnterPage.EnterPage
-Main.java
- Main
-pages/PersonalPage/Notifications.java
- pages.PersonalPage.Notifications
-pages/EnterPage/SignIn.java
- pages.EnterPage.SignIn
-pages/PersonalPage/ShowLists.java
- pages.PersonalPage.ShowLists
+models/media/Tweet.java
+ models.media.Tweet
+CLI/ConsoleColors.java
+ CLI.ConsoleColors
+models/media/Media.java
+ models.media.Media
+pages/Messaging/Messaging.java
+ pages.Messaging.Messaging
+models/media/Message.java
+ models.media.Message
 pages/MainPage.java
  pages.MainPage
-pages/PersonalPage/EditPage.java
- pages.PersonalPage.EditPage
+models/User.java
+ models.User
+pages/PersonalPage/Notifications.java
+ pages.PersonalPage.Notifications
+pages/ShowPage.java
+ pages.ShowPage
 pages/PersonalPage/PersonalPage.java
  pages.PersonalPage.PersonalPage
+pages/Timeline.java
+ pages.Timeline
+pages/TweetWalk.java
+ pages.TweetWalk
+pages/PersonalPage/EditPage.java
+ pages.PersonalPage.EditPage
+pages/Messaging/PersonalMessage.java
+ pages.Messaging.PersonalMessage
+pages/Messaging/GroupMessage.java
+ pages.Messaging.GroupMessage
+pages/PersonalPage/ShowLists.java
+ pages.PersonalPage.ShowLists
+Main.java
+ Main
+pages/Settings.java
+ pages.Settings
+pages/EnterPage/EnterPage.java
+ pages.EnterPage.EnterPage
+pages/EnterPage/SignIn.java
+ pages.EnterPage.SignIn
+pages/EnterPage/SignUp.java
+ pages.EnterPage.SignUp
+pages/Explorer.java
+ pages.Explorer

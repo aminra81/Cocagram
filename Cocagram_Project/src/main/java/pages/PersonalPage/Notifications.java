@@ -6,8 +6,11 @@ import models.User;
 
 public class Notifications {
     public static void getHelp() {
-        CLI.print("[1] requests", ConsoleColors.RED);
-        CLI.print("[2] system messages", ConsoleColors.RED);
+        CLI.print("", ConsoleColors.BLACK);
+        CLI.print("\t\t\t\tNotifications", ConsoleColors.BLACK_BOLD);
+        CLI.print("[1] requests", ConsoleColors.YELLOW);
+        CLI.print("[2] system messages", ConsoleColors.YELLOW);
+        CLI.print("", ConsoleColors.BLACK);
     }
 
     public static void logic(User user) {
@@ -32,8 +35,12 @@ public class Notifications {
 
     private static void getRequests(User user) {
         while (true) {
-            CLI.print("[1] requests", ConsoleColors.RED);
-            CLI.print("[2] messages", ConsoleColors.RED);
+            CLI.print("", ConsoleColors.BLACK);
+            CLI.print("\t\t\t\trequests", ConsoleColors.BLACK_BOLD);
+            CLI.print("[1] requests", ConsoleColors.YELLOW);
+            CLI.print("[2] messages", ConsoleColors.YELLOW);
+            CLI.print("", ConsoleColors.BLACK);
+
             String command = CLI.getCommand("Enter your command:", ConsoleColors.BLACK);
             if (command.equals("back"))
                 break;
@@ -52,16 +59,22 @@ public class Notifications {
     }
 
     private static void getSystemMessages(User user) {
+        CLI.print("", ConsoleColors.BLACK);
+        CLI.print("\t\t\t\tsystem messages", ConsoleColors.BLACK_BOLD);
         for (String systemMessage : user.getNotifications())
             CLI.print(systemMessage, ConsoleColors.BLACK);
         CLI.print("", ConsoleColors.RESET);
     }
 
     private static void requestHandling(User user) {
+        CLI.print("", ConsoleColors.BLACK);
+        CLI.print("\t\t\t\trequested users", ConsoleColors.BLACK_BOLD);
         for (int counter = 0; counter < user.getRequests().size(); counter++) {
             User currentUser = User.getByID(user.getRequests().get(counter));
-            CLI.print(String.format("[%s] %s", counter + 1, currentUser.getUsername()), ConsoleColors.RED);
+            CLI.print(String.format("[%s] %s", counter + 1, currentUser.getUsername()), ConsoleColors.YELLOW);
         }
+        CLI.print("", ConsoleColors.BLACK);
+
         if(user.getRequests().size() == 0)
             return;
         String command = CLI.getCommand("Enter the user number:", ConsoleColors.BLACK);
@@ -88,15 +101,15 @@ public class Notifications {
                 requester.addToRequestNotifications(
                         String.format("user %s accepted your follow request!", user.getUsername()));
                 user.addToFollowers(requester.getID());
-                user.removeIndexFromRequests(userNumber);
+                user.removeFromRequests(requester.getID());
                 break;
             case "2":
                 requester.addToRequestNotifications(
                         String.format("user %s rejected your follow request!", user.getUsername()));
-                user.removeIndexFromRequests(userNumber);
+                user.removeFromRequests(requester.getID());
                 break;
             case"3":
-                user.removeIndexFromRequests(userNumber);
+                user.removeFromRequests(requester.getID());
                 break;
             default:
                 CLI.invalidCommand();
@@ -105,8 +118,10 @@ public class Notifications {
     }
 
     private static void getRequestMessages(User user) {
+        CLI.print("", ConsoleColors.BLACK);
+        CLI.print("\t\t\t\trequest messages", ConsoleColors.BLACK_BOLD);
         for (String requestMessage : user.getRequestNotifications())
-            CLI.print(requestMessage, ConsoleColors.BLACK);
+            CLI.print(requestMessage, ConsoleColors.BLUE);
         CLI.print("", ConsoleColors.RESET);
     }
 }

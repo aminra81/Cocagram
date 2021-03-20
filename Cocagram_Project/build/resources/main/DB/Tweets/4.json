@@ -1,23 +1,31 @@
 {
+  "likes": [],
+  "comments": [
+    {
+      "idNum": 5
+    },
+    {
+      "idNum": 6
+    }
+  ],
   "id": {
     "idNum": 4
   },
-  "likes": [],
-  "content": "Hiiii b.",
+  "content": "Heyyyy",
   "writer": {
-    "idNum": 2
+    "idNum": 1
   },
   "datetime": {
     "date": {
       "year": 2021,
       "month": 3,
-      "day": 13
+      "day": 16
     },
     "time": {
-      "hour": 23,
-      "minute": 17,
-      "second": 29,
-      "nano": 472864000
+      "hour": 1,
+      "minute": 36,
+      "second": 38,
+      "nano": 276326000
     }
   }
 }

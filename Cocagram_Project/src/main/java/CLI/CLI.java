@@ -1,5 +1,6 @@
 package CLI;
 
+
 import java.util.Scanner;
 
 public class CLI {
@@ -16,5 +17,6 @@ public class CLI {
     }
     public static void invalidCommand() {
         print("Invalid Command", ConsoleColors.RED_BOLD);
+        print("", ConsoleColors.RESET);
     }
 }

@@ -23,7 +23,7 @@ public class SignUp {
 
         String password = getPassword();
 
-        boolean publicData = (CLI.getCommand("Do you want your data to be public? (Y/N):",
+        boolean publicData = (CLI.getCommand("Do you want your data to be public? (birthdate, phone number, email) (Y/N):",
                 ConsoleColors.BLACK).equals("Y"));
 
         String lastSeenType = CLI.getCommand("Enter your last seen type (Everyone, Followings, Nobody):",

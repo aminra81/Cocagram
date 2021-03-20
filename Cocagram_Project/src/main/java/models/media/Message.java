@@ -3,13 +3,11 @@ package models.media;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.ID;
-import models.User;
-
 import java.io.*;
-import java.util.Objects;
+import java.util.Comparator;
+import java.util.List;
 
 public class Message extends Media {
-    ID id;
     ID receiver;
 
     private static final File dbDirectory = new File("./src/main/resources/DB/Messages");
@@ -19,7 +17,9 @@ public class Message extends Media {
             File Data = new File(dbDirectory, id + ".json");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(Data));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            return gson.fromJson(bufferedReader, Message.class);
+            Message message = gson.fromJson(bufferedReader, Message.class);
+            bufferedReader.close();
+            return message;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,15 +42,16 @@ public class Message extends Media {
 
     public Message(String content, ID writer, ID receiver) {
         super(content, writer);
-        this.id = new ID(true);
         this.receiver = receiver;
-        User.getByID(receiver).addToUnreadMessages(this.id);
-        User.getByID(writer).addToMessages(this.id);
         this.saveIntoDB();
     }
 
-    public ID getId() {
-        return id;
+    public ID getReceiver() { return receiver; }
+
+
+    public static void sortByDateTime(List<Message> messages) {
+        Comparator<Message> byDateTime = Comparator.comparing(Message::getDateTime).reversed();
+        messages.sort(byDateTime);
     }
 
     @Override

@@ -4,18 +4,22 @@ import models.ID;
 import models.User;
 import CLI.*;
 import models.media.Tweet;
+import pages.TweetWalk;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalPage {
     static void getHelp() {
-        CLI.print("[1] new tweet", ConsoleColors.BLACK);
-        CLI.print("[2] my tweets", ConsoleColors.BLACK);
-        CLI.print("[3] edit your page", ConsoleColors.BLACK);
-        CLI.print("[4] lists", ConsoleColors.BLACK);
-        CLI.print("[5] info", ConsoleColors.BLACK);
-        CLI.print("[6] notifications", ConsoleColors.BLACK);
+        CLI.print("", ConsoleColors.RESET);
+        CLI.print("\t\t\t\tpersonal page", ConsoleColors.BLACK_BOLD);
+        CLI.print("[1] new tweet", ConsoleColors.YELLOW);
+        CLI.print("[2] my tweets", ConsoleColors.YELLOW);
+        CLI.print("[3] edit your page", ConsoleColors.YELLOW);
+        CLI.print("[4] lists", ConsoleColors.YELLOW);
+        CLI.print("[5] info", ConsoleColors.YELLOW);
+        CLI.print("[6] notifications", ConsoleColors.YELLOW);
+        CLI.print("", ConsoleColors.BLACK);
     }
 
     public static void logic(User user) {
@@ -51,10 +55,11 @@ public class PersonalPage {
     }
 
     private static void newTweet(User user) {
+        CLI.print("", ConsoleColors.BLACK);
         String content = CLI.getCommand("write your tweet:", ConsoleColors.BLUE);
         Tweet newTweet = new Tweet(content, user.getID(), null);
         user.addToTweets(newTweet.getId());
-        CLI.print("you tweeted successfully!", ConsoleColors.BLUE_BOLD);
+        CLI.print("you tweeted successfully!", ConsoleColors.GREEN_BOLD);
     }
 
     private static void showTweets(User user) {
@@ -65,23 +70,12 @@ public class PersonalPage {
                 tweets.add(curTweet);
         }
         Tweet.sortByDateTime(tweets);
-        int counter = 1;
-        for (Tweet tweet : tweets) {
-            if (tweet.getUser().equals(user.getID()))
-                CLI.print(String.format("[%s]", counter) + " " + tweet.getContent(),
-                        ConsoleColors.RED);
-            else
-                CLI.print(String.format("[%s]", counter) +
-                        String.format(" retweeted %s's tweet: ", User.getByID(tweet.getUser()).getUsername())
-                        + tweet.getContent(), ConsoleColors.RED);
-
-            CLI.print(String.format("\u2665: %s", tweet.getLikeNumbers()), ConsoleColors.RED);
-            CLI.print("", ConsoleColors.RESET);
-            counter++;
-        }
+        TweetWalk.showTweets(user, tweets, true);
     }
 
     private static void getInfo(User user) {
+        CLI.print("", ConsoleColors.RESET);
+        CLI.print("\t\t\t\tinfo", ConsoleColors.BLACK_BOLD);
         CLI.print(String.format("firstname: %s", user.getFirstname()), ConsoleColors.CYAN_BOLD);
         CLI.print(String.format("lastname: %s", user.getLastname()), ConsoleColors.CYAN_BOLD);
         CLI.print(String.format("username: %s", user.getUsername()), ConsoleColors.CYAN_BOLD);

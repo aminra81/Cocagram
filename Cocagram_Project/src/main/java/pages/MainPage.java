@@ -2,15 +2,20 @@ package pages;
 
 import models.User;
 import CLI.*;
+import pages.Messaging.Messaging;
 import pages.PersonalPage.PersonalPage;
+import pages.Settings.Settings;
 
 public class MainPage {
     static void getHelp() {
-        CLI.print("[1] personal page", ConsoleColors.BLACK);
-        CLI.print("[2] timeline", ConsoleColors.BLACK);
-        CLI.print("[3] explorer", ConsoleColors.BLACK);
-        CLI.print("[4] messaging", ConsoleColors.BLACK);
-        CLI.print("[5] settings", ConsoleColors.BLACK);
+        CLI.print("", ConsoleColors.RESET);
+        CLI.print("\t\t\t\tmain page", ConsoleColors.BLACK_BOLD);
+        CLI.print("[1] personal page", ConsoleColors.YELLOW);
+        CLI.print("[2] timeline", ConsoleColors.YELLOW);
+        CLI.print("[3] explorer", ConsoleColors.YELLOW);
+        CLI.print("[4] messaging", ConsoleColors.YELLOW);
+        CLI.print("[5] settings", ConsoleColors.YELLOW);
+        CLI.print("", ConsoleColors.BLACK);
     }
 
     public static void logic(User user) {

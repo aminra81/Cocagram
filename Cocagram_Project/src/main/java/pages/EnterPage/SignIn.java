@@ -18,6 +18,8 @@ public class SignIn {
             CLI.print("password isn't correct. you've drunk a lot of Coca.", ConsoleColors.RED_BOLD);
             logic();
         }
+        user.setLastSeen(null);
+        user.setActive(true);
         CLI.print("\t\t\t\tWelcome back " + user.getUsername() +"\n", ConsoleColors.BLUE_BOLD);
         MainPage.logic(user);
     }

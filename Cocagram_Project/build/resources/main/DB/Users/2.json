@@ -2,45 +2,31 @@
   "id": {
     "idNum": 2
   },
-  "firstname": "petros",
-  "lastname": "ahi",
-  "username": "a",
-  "bio": "petros",
-  "birthDate": {
-    "year": 2005,
-    "month": 3,
-    "day": 1
-  },
-  "email": "a@gmail.com",
+  "firstname": "b",
+  "lastname": "b",
+  "username": "b",
+  "bio": "",
+  "email": "b@gmail.com",
   "phoneNumber": "",
   "password": "99",
   "publicData": false,
   "isActive": true,
-  "lastSeen": {
-    "date": {
-      "year": 2021,
-      "month": 3,
-      "day": 13
-    },
-    "time": {
-      "hour": 13,
-      "minute": 5,
-      "second": 49,
-      "nano": 42993000
-    }
-  },
-  "lastSeenType": "Everyone",
+  "lastSeenType": "Followings",
   "followings": [
     {
       "idNum": 1
-    }
-  ],
-  "followers": [],
-  "blockList": [],
-  "tweets": [
+    },
     {
       "idNum": 3
-    },
+    }
+  ],
+  "followers": [
+    {
+      "idNum": 3
+    }
+  ],
+  "blockList": [],
+  "tweets": [
     {
       "idNum": 4
     },
@@ -56,11 +42,73 @@
   ],
   "requestNotifications": [],
   "likedTweets": [],
-  "messages": [],
+  "messages": [
+    {
+      "idNum": 18
+    },
+    {
+      "idNum": 19
+    },
+    {
+      "idNum": 21
+    },
+    {
+      "idNum": 23
+    },
+    {
+      "idNum": 24
+    },
+    {
+      "idNum": 25
+    },
+    {
+      "idNum": 26
+    },
+    {
+      "idNum": 27
+    },
+    {
+      "idNum": 28
+    }
+  ],
   "unreadMessages": [],
   "requests": [],
-  "notifications": [],
+  "notifications": [
+    "user c followed you!"
+  ],
   "isPrivate": false,
-  "groups": [],
-  "savedMessages": []
+  "groups": [
+    {
+      "groupName": "doostan",
+      "users": [
+        {
+          "idNum": 1
+        },
+        {
+          "idNum": 3
+        }
+      ]
+    }
+  ],
+  "savedMessages": [
+    {
+      "idNum": 14
+    },
+    {
+      "idNum": 15
+    },
+    {
+      "idNum": 16
+    },
+    {
+      "idNum": 17
+    },
+    {
+      "idNum": 18
+    },
+    {
+      "idNum": 24
+    }
+  ],
+  "mutedUsers": []
 }

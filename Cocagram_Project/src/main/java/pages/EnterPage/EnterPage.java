@@ -11,12 +11,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class EnterPage{
-    static void getHelp() {
+    private static void getHelp() {
         CLI.print("type \"sign_in\" to sign in.\n" +
-                "type \"sign_up\" to sign up.", ConsoleColors.RESET);
+                "type \"sign_up\" to sign up.", ConsoleColors.YELLOW);
+        CLI.print("", ConsoleColors.RESET);
     }
 
     static public void logic() {
+        CLI.print("", ConsoleColors.BLACK);
+        CLI.print("\t\t\t\tenter page", ConsoleColors.BLACK_BOLD);
         String command = CLI.getCommand("Enter your command:", ConsoleColors.BLACK);
         switch(command) {
             case "-help":

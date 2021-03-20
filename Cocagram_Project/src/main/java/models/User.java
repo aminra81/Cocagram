@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private ID id;
@@ -36,6 +37,7 @@ public class User {
     private boolean isPrivate;
     private List<Group> groups;
     private List<ID> savedMessages;
+    private List<ID> mutedUsers;
 
     private static final File dbDirectory = new File("./src/main/resources/DB/Users");
 
@@ -45,6 +47,7 @@ public class User {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(Data));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             User user = gson.fromJson(bufferedReader, User.class);
+            bufferedReader.close();
             return user;
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,12 +101,18 @@ public class User {
         this.requests = new ArrayList<>();
         this.notifications = new ArrayList<>();
         this.savedMessages = new ArrayList<>();
+        this.mutedUsers = new ArrayList<>();
 
         this.saveIntoDB();
     }
 
-    public void addToLikedTweets(ID post) {
-        this.likedTweets.add(post);
+    public void addToLikedTweets(ID tweet) {
+        this.likedTweets.add(tweet);
+        this.saveIntoDB();
+    }
+
+    public void removeFromLikedTweets(ID tweet) {
+        this.likedTweets.remove(tweet);
         this.saveIntoDB();
     }
 
@@ -219,19 +228,52 @@ public class User {
         saveIntoDB();
     }
 
+    public void removeFromFollowings(ID user) {
+        followings.remove(user);
+        saveIntoDB();
+    }
+
     public void addToFollowers(ID user) {
         followers.add(user);
         saveIntoDB();
     }
 
-    public void addToRequestNotifications(String content) {
-        requestNotifications.add(content);
+    public void removeFromFollowers(ID user) {
+        followers.remove(user);
         saveIntoDB();
-        return;
     }
 
-    public void removeIndexFromRequests(int idx) {
-        requests.remove(idx);
+    public void addToBlocklist(ID user) {
+        blockList.add(user);
+        saveIntoDB();
+    }
+
+    public void removeFromBlocklist(ID user) {
+        blockList.remove(user);
+        saveIntoDB();
+    }
+
+    public void addToRequestNotifications(String content) {
+        requestNotifications.add(content);
+        if(requestNotifications.size() > 10)
+            requestNotifications.remove(0);
+        saveIntoDB();
+    }
+
+    public void addToNotifications(String content) {
+        notifications.add(content);
+        if(notifications.size() > 10)
+            notifications.remove(0);
+        saveIntoDB();
+    }
+
+    public void addToRequests(ID requester) {
+        requests.add(requester);
+        saveIntoDB();
+    }
+
+    public void removeFromRequests(ID requester) {
+        requests.remove(requester);
         saveIntoDB();
     }
 
@@ -249,11 +291,83 @@ public class User {
         return blockList;
     }
 
+    public void removeGroup(Group group) {
+        groups.remove(group);
+        saveIntoDB();
+    }
+
+    public void addGroup(Group group) {
+        groups.add(group);
+        saveIntoDB();
+    }
+
+    public List<ID> getLikedTweets() { return likedTweets; }
+
+    public List<ID> getMutedUsers() { return mutedUsers; }
+
+    public void addToMutedUsers(ID user) {
+        mutedUsers.add(user);
+        this.saveIntoDB();
+    }
+
+    public void removeFromMutedUsers(ID user) {
+        mutedUsers.remove(user);
+        this.saveIntoDB();
+    }
+
+    public void setLastSeen(LocalDateTime lastSeen) {
+        this.lastSeen = lastSeen;
+        this.saveIntoDB();
+    }
+
+    public LocalDateTime getLastSeen() { return lastSeen; }
+
+    public void addToSavedMessages(ID message) {
+        savedMessages.add(message);
+        this.saveIntoDB();
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+        this.saveIntoDB();
+    }
+
+    public List<ID> getSavedMessages() { return savedMessages; }
+
+    public List<ID> getUnreadMessages() { return unreadMessages; }
+
+    public List<ID> getMessages() { return messages; }
+
+    public void removeFromUnreadMessages(ID message) {
+        unreadMessages.remove(message);
+        this.saveIntoDB();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+        this.saveIntoDB();
+    }
+
+    public void setLastSeenType(String lastSeenType) {
+        this.lastSeenType = lastSeenType;
+        this.saveIntoDB();
+    }
+
+    public void setPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
+        this.saveIntoDB();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return user.getID().equals(getID());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
     }
 }

@@ -2,40 +2,90 @@
   "id": {
     "idNum": 1
   },
-  "firstname": "braaaaaaaaa",
-  "lastname": "b",
-  "username": "b",
+  "firstname": "a",
+  "lastname": "a",
+  "username": "a",
   "bio": "",
-  "email": "b@gmail.com",
+  "email": "a@gmail.com",
   "phoneNumber": "",
-  "password": "99",
-  "publicData": false,
+  "password": "999",
+  "publicData": true,
   "isActive": true,
   "lastSeen": {
     "date": {
       "year": 2021,
       "month": 3,
-      "day": 13
+      "day": 19
     },
     "time": {
-      "hour": 13,
-      "minute": 2,
-      "second": 38,
-      "nano": 601338000
+      "hour": 11,
+      "minute": 32,
+      "second": 21,
+      "nano": 235849000
     }
   },
-  "lastSeenType": "Everyone",
+  "lastSeenType": "Followings",
   "followings": [],
-  "followers": [],
+  "followers": [
+    {
+      "idNum": 2
+    }
+  ],
   "blockList": [],
-  "tweets": [],
+  "tweets": [
+    {
+      "idNum": 4
+    }
+  ],
   "requestNotifications": [],
   "likedTweets": [],
-  "messages": [],
+  "messages": [
+    {
+      "idNum": 18
+    },
+    {
+      "idNum": 19
+    },
+    {
+      "idNum": 21
+    },
+    {
+      "idNum": 23
+    },
+    {
+      "idNum": 25
+    },
+    {
+      "idNum": 26
+    },
+    {
+      "idNum": 27
+    }
+  ],
   "unreadMessages": [],
   "requests": [],
-  "notifications": [],
+  "notifications": [
+    "user b followed you!"
+  ],
   "isPrivate": false,
   "groups": [],
-  "savedMessages": []
+  "savedMessages": [
+    {
+      "idNum": 18
+    },
+    {
+      "idNum": 20
+    },
+    {
+      "idNum": 21
+    },
+    {
+      "idNum": 22
+    }
+  ],
+  "mutedUsers": [
+    {
+      "idNum": 3
+    }
+  ]
 }
