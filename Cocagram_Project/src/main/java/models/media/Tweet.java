@@ -25,7 +25,7 @@ public class Tweet extends Media {
             Tweet tweet = gson.fromJson(bufferedReader, Tweet.class);
             bufferedReader.close();
             return tweet;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

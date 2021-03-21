@@ -20,7 +20,7 @@ public class Message extends Media {
             Message message = gson.fromJson(bufferedReader, Message.class);
             bufferedReader.close();
             return message;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -35,7 +35,7 @@ public class Message extends Media {
             FileWriter writer = new FileWriter(Data);
             writer.write(gson.toJson(this));
             writer.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

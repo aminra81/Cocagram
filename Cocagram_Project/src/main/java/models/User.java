@@ -49,7 +49,7 @@ public class User {
             User user = gson.fromJson(bufferedReader, User.class);
             bufferedReader.close();
             return user;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -108,6 +108,11 @@ public class User {
 
     public void addToLikedTweets(ID tweet) {
         this.likedTweets.add(tweet);
+        this.saveIntoDB();
+    }
+
+    public void removeFromTweets(ID tweet) {
+        this.tweets.remove(tweet);
         this.saveIntoDB();
     }
 
@@ -338,8 +343,18 @@ public class User {
 
     public List<ID> getMessages() { return messages; }
 
+    public void removeFromMessages(ID message) {
+        messages.remove(message);
+        this.saveIntoDB();
+    }
+
     public void removeFromUnreadMessages(ID message) {
         unreadMessages.remove(message);
+        this.saveIntoDB();
+    }
+
+    public void removeFromSavedMessages(ID message) {
+        savedMessages.remove(message);
         this.saveIntoDB();
     }
 
@@ -355,6 +370,16 @@ public class User {
 
     public void setPrivate(boolean isPrivate) {
         this.isPrivate = isPrivate;
+        this.saveIntoDB();
+    }
+
+    public void removeFromRequestNotifications(String requestNotification) {
+        requestNotifications.remove(requestNotification);
+        this.saveIntoDB();
+    }
+
+    public void removeFromNotifications(String notification) {
+        notifications.remove(notification);
         this.saveIntoDB();
     }
 

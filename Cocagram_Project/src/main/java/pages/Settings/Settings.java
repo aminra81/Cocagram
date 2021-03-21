@@ -29,7 +29,7 @@ public class Settings{
                     logout(user);
                     break;
                 case "3":
-                    //delete
+                    DeleteAccount.logic(user);
                     break;
                 default:
                     CLI.invalidCommand();

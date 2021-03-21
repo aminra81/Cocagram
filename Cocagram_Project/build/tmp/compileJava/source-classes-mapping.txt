@@ -4,47 +4,49 @@ models/ID.java
  models.ID
 CLI/CLI.java
  CLI.CLI
-models/media/Tweet.java
- models.media.Tweet
+Main.java
+ Main
 CLI/ConsoleColors.java
  CLI.ConsoleColors
 models/media/Media.java
  models.media.Media
-pages/Messaging/Messaging.java
- pages.Messaging.Messaging
-models/media/Message.java
- models.media.Message
 pages/MainPage.java
  pages.MainPage
-models/User.java
- models.User
+pages/PersonalPage/ShowLists.java
+ pages.PersonalPage.ShowLists
 pages/PersonalPage/Notifications.java
  pages.PersonalPage.Notifications
 pages/ShowPage.java
  pages.ShowPage
-pages/PersonalPage/PersonalPage.java
- pages.PersonalPage.PersonalPage
+models/media/Tweet.java
+ models.media.Tweet
 pages/Timeline.java
  pages.Timeline
-pages/TweetWalk.java
- pages.TweetWalk
-pages/PersonalPage/EditPage.java
- pages.PersonalPage.EditPage
-pages/Messaging/PersonalMessage.java
- pages.Messaging.PersonalMessage
-pages/Messaging/GroupMessage.java
- pages.Messaging.GroupMessage
-pages/PersonalPage/ShowLists.java
- pages.PersonalPage.ShowLists
-Main.java
- Main
-pages/Settings.java
- pages.Settings
-pages/EnterPage/EnterPage.java
- pages.EnterPage.EnterPage
 pages/EnterPage/SignIn.java
  pages.EnterPage.SignIn
-pages/EnterPage/SignUp.java
- pages.EnterPage.SignUp
+pages/EnterPage/EnterPage.java
+ pages.EnterPage.EnterPage
 pages/Explorer.java
  pages.Explorer
+pages/Settings/Settings.java
+ pages.Settings.Settings
+pages/Messaging/GroupMessage.java
+ pages.Messaging.GroupMessage
+pages/PersonalPage/EditPage.java
+ pages.PersonalPage.EditPage
+models/User.java
+ models.User
+pages/EnterPage/SignUp.java
+ pages.EnterPage.SignUp
+pages/PersonalPage/PersonalPage.java
+ pages.PersonalPage.PersonalPage
+pages/Messaging/PersonalMessage.java
+ pages.Messaging.PersonalMessage
+pages/Settings/DeleteAccount.java
+ pages.Settings.DeleteAccount
+pages/Messaging/Messaging.java
+ pages.Messaging.Messaging
+models/media/Message.java
+ models.media.Message
+pages/TweetWalk.java
+ pages.TweetWalk

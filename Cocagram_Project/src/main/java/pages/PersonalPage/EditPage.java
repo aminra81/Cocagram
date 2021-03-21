@@ -7,13 +7,15 @@ import pages.EnterPage.SignUp;
 
 public class EditPage {
     public static void getHelp() {
+        CLI.print("", ConsoleColors.BLACK);
         CLI.print("Ok here you can change your Coca.", ConsoleColors.BLACK_BOLD);
-        CLI.print("[1] firstname", ConsoleColors.RED);
-        CLI.print("[2] lastname", ConsoleColors.RED);
-        CLI.print("[3] bio", ConsoleColors.RED);
-        CLI.print("[4] birthDate", ConsoleColors.RED);
-        CLI.print("[5] email", ConsoleColors.RED);
-        CLI.print("[6] phone number", ConsoleColors.RED);
+        CLI.print("[1] firstname", ConsoleColors.YELLOW);
+        CLI.print("[2] lastname", ConsoleColors.YELLOW);
+        CLI.print("[3] bio", ConsoleColors.YELLOW);
+        CLI.print("[4] birthDate", ConsoleColors.YELLOW);
+        CLI.print("[5] email", ConsoleColors.YELLOW);
+        CLI.print("[6] phone number", ConsoleColors.YELLOW);
+        CLI.print("", ConsoleColors.BLACK);
     }
     public static void logic(User user) {
         while (true) {
