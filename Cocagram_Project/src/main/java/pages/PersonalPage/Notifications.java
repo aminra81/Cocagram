@@ -3,8 +3,13 @@ package pages.PersonalPage;
 import CLI.*;
 
 import models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Notifications {
+
+    static private final Logger logger = LogManager.getLogger(Notifications.class);
+
     public static void getHelp() {
         CLI.print("", ConsoleColors.BLACK);
         CLI.print("\t\t\t\tNotifications", ConsoleColors.BLACK_BOLD);
@@ -16,6 +21,7 @@ public class Notifications {
     public static void logic(User user) {
         while (true) {
             getHelp();
+            logger.info(String.format("user %s checked notifications page.", user.getUsername()));
             String command = CLI.getCommand("Enter your command:", ConsoleColors.BLACK);
             if (command.equals("back"))
                 break;
@@ -40,7 +46,7 @@ public class Notifications {
             CLI.print("[1] requests", ConsoleColors.YELLOW);
             CLI.print("[2] messages", ConsoleColors.YELLOW);
             CLI.print("", ConsoleColors.BLACK);
-
+            logger.info(String.format("user %s checked requests page.", user.getUsername()));
             String command = CLI.getCommand("Enter your command:", ConsoleColors.BLACK);
             if (command.equals("back"))
                 break;
@@ -100,16 +106,19 @@ public class Notifications {
                 requester.addToFollowings(user.getID());
                 requester.addToRequestNotifications(
                         String.format("user %s accepted your follow request!", user.getUsername()));
+                logger.info(String.format("%s accepted %s's request.", user.getUsername(), requester.getUsername()));
                 user.addToFollowers(requester.getID());
                 user.removeFromRequests(requester.getID());
                 break;
             case "2":
                 requester.addToRequestNotifications(
                         String.format("user %s rejected your follow request!", user.getUsername()));
+                logger.info(String.format("%s rejected %s's request.", user.getUsername(), requester.getUsername()));
                 user.removeFromRequests(requester.getID());
                 break;
             case"3":
                 user.removeFromRequests(requester.getID());
+                logger.info(String.format("%s rejected %s's request.", user.getUsername(), requester.getUsername()));
                 break;
             default:
                 CLI.invalidCommand();

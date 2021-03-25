@@ -1,52 +1,52 @@
+CLI/ConsoleColors.java
+ CLI.ConsoleColors
+models/media/Tweet.java
+ models.media.Tweet
 models/Group.java
  models.Group
 models/ID.java
  models.ID
-CLI/CLI.java
- CLI.CLI
-Main.java
- Main
-CLI/ConsoleColors.java
- CLI.ConsoleColors
 models/media/Media.java
  models.media.Media
-pages/MainPage.java
- pages.MainPage
+models/media/Message.java
+ models.media.Message
+models/User.java
+ models.User
+pages/EnterPage/SignUp.java
+ pages.EnterPage.SignUp
 pages/PersonalPage/ShowLists.java
  pages.PersonalPage.ShowLists
 pages/PersonalPage/Notifications.java
  pages.PersonalPage.Notifications
 pages/ShowPage.java
  pages.ShowPage
-models/media/Tweet.java
- models.media.Tweet
+CLI/CLI.java
+ CLI.CLI
 pages/Timeline.java
  pages.Timeline
 pages/EnterPage/SignIn.java
  pages.EnterPage.SignIn
-pages/EnterPage/EnterPage.java
- pages.EnterPage.EnterPage
+pages/TweetWalk.java
+ pages.TweetWalk
 pages/Explorer.java
  pages.Explorer
-pages/Settings/Settings.java
- pages.Settings.Settings
+pages/Messaging/PersonalMessage.java
+ pages.Messaging.PersonalMessage
 pages/Messaging/GroupMessage.java
  pages.Messaging.GroupMessage
 pages/PersonalPage/EditPage.java
  pages.PersonalPage.EditPage
-models/User.java
- models.User
-pages/EnterPage/SignUp.java
- pages.EnterPage.SignUp
-pages/PersonalPage/PersonalPage.java
- pages.PersonalPage.PersonalPage
-pages/Messaging/PersonalMessage.java
- pages.Messaging.PersonalMessage
+Main.java
+ Main
 pages/Settings/DeleteAccount.java
  pages.Settings.DeleteAccount
+pages/PersonalPage/PersonalPage.java
+ pages.PersonalPage.PersonalPage
 pages/Messaging/Messaging.java
  pages.Messaging.Messaging
-models/media/Message.java
- models.media.Message
-pages/TweetWalk.java
- pages.TweetWalk
+pages/EnterPage/EnterPage.java
+ pages.EnterPage.EnterPage
+pages/MainPage.java
+ pages.MainPage
+pages/Settings/Settings.java
+ pages.Settings.Settings

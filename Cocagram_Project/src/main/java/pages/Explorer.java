@@ -4,6 +4,8 @@ import com.google.gson.GsonBuilder;
 import models.User;
 import CLI.*;
 import models.media.Tweet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.EnterPage.EnterPage;
 
 import java.io.BufferedReader;
@@ -14,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Explorer{
+
+    static private final Logger logger = LogManager.getLogger(Explorer.class);
+
     static void getHelp() {
         CLI.print("", ConsoleColors.RESET);
         CLI.print("\t\t\t\texplorer", ConsoleColors.BLACK_BOLD);
@@ -30,8 +35,11 @@ public class Explorer{
             switch (command) {
                 case "1":
                     User curUser = EnterPage.getUser(CLI.getCommand("Enter the username:", ConsoleColors.BLUE));
-                    if(curUser == null)
+                    if (curUser == null) {
                         CLI.print("this username doesn't exist!", ConsoleColors.RED_BOLD);
+                        logger.info(String.format("user %s wants to check profile of a user which doesn't exist.",
+                                user.getUsername()));
+                    }
                     else
                         ShowPage.logic(user, curUser);
                     break;
@@ -51,12 +59,16 @@ public class Explorer{
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             for (File userFile : dbDirectory.listFiles()) {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(userFile));
+                logger.info(String.format("file %s opened.", userFile.getName()));
                 Tweet currentTweet = gson.fromJson(bufferedReader, Tweet.class);
+                bufferedReader.close();
+                logger.info(String.format("file %s closed.", userFile.getName()));
                 User writer = User.getByID(currentTweet.getWriter());
                 if(!writer.isPrivate())
                     tweets.add(currentTweet);
             }
         } catch (IOException e) {
+            logger.warn("an Exception occurred while loading public user's tweets.");
             e.printStackTrace();
         }
         return tweets;

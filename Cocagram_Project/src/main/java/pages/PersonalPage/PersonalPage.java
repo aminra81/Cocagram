@@ -4,12 +4,17 @@ import models.ID;
 import models.User;
 import CLI.*;
 import models.media.Tweet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.TweetWalk;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalPage {
+
+    static private final Logger logger = LogManager.getLogger(PersonalPage.class);
+
     static void getHelp() {
         CLI.print("", ConsoleColors.RESET);
         CLI.print("\t\t\t\tpersonal page", ConsoleColors.BLACK_BOLD);
@@ -25,6 +30,7 @@ public class PersonalPage {
     public static void logic(User user) {
         while (true) {
             getHelp();
+            logger.info(String.format("user %s checked personal page.", user.getUsername()));
             String command = CLI.getCommand("enter your command:", ConsoleColors.BLACK);
             if (command.equals("back"))
                 break;
@@ -59,6 +65,7 @@ public class PersonalPage {
         String content = CLI.getCommand("write your tweet:", ConsoleColors.BLUE);
         Tweet newTweet = new Tweet(content, user.getID(), null);
         user.addToTweets(newTweet.getId());
+        logger.info(String.format("user %s tweeted.", user.getUsername()));
         CLI.print("you tweeted successfully!", ConsoleColors.GREEN_BOLD);
     }
 

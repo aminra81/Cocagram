@@ -4,6 +4,8 @@ import CLI.*;
 import models.Group;
 import models.ID;
 import models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.EnterPage.EnterPage;
 import pages.ShowPage;
 
@@ -11,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowLists {
+
+    static private final Logger logger = LogManager.getLogger(ShowLists.class);
+
     public static void getHelp(User user) {
         CLI.print("", ConsoleColors.BLACK);
         CLI.print("\t\t\t\tlists", ConsoleColors.BLACK_BOLD);
@@ -26,6 +31,7 @@ public class ShowLists {
     public static void logic(User user) {
         while(true) {
             getHelp(user);
+            logger.info(String.format("user %s checked list page."));
             String command = CLI.getCommand("Enter your command:", ConsoleColors.BLACK);
             if(command.equals("back"))
                 break;
@@ -60,8 +66,11 @@ public class ShowLists {
         for (ID currentUser : activeUsers)
             if(User.getByID(currentUser).getUsername().equals(command))
                 userToBeVisited = User.getByID(currentUser);
-        if(userToBeVisited == null)
+        if(userToBeVisited == null) {
             CLI.print("This user doesn't exist in this list.", ConsoleColors.RED_BOLD);
+            logger.info(String.format("user %s wants to check profile of a user which doesn't exist.",
+                    user.getUsername()));
+        }
         else
             ShowPage.logic(user, userToBeVisited);
     }
@@ -86,12 +95,21 @@ public class ShowLists {
                 case "3":
                     String username = CLI.getCommand("Enter the username:", ConsoleColors.BLACK);
                     User currentUser = EnterPage.getUser(username);
-                    if(currentUser == null || !currentUser.isActive())
+                    if(currentUser == null || !currentUser.isActive()) {
                         CLI.print("this username doesn't exist!", ConsoleColors.RED_BOLD);
-                    else if(!user.getFollowings().contains(currentUser.getID()))
+                        logger.info(String.format("user %s wants to add a user which doesn't exist to group.",
+                                user.getUsername()));
+                    }
+                    else if(!user.getFollowings().contains(currentUser.getID())) {
                         CLI.print("this username isn't in your followings!", ConsoleColors.RED_BOLD);
-                    else if(group.getUsers().contains(currentUser.getID()))
+                        logger.info(String.format("user %s wants to add a user which doesn't exist to group.",
+                                user.getUsername()));
+                    }
+                    else if(group.getUsers().contains(currentUser.getID())) {
                         CLI.print("this username is in your group!", ConsoleColors.RED_BOLD);
+                        logger.info(String.format("user %s wants to add a user which doesn't exist to group.",
+                                user.getUsername()));
+                    }
                     else {
                         group.addUser(currentUser.getID());
                         user.removeGroup(group);
@@ -101,10 +119,16 @@ public class ShowLists {
                 case "4":
                     username = CLI.getCommand("Enter the username:", ConsoleColors.BLACK);
                     currentUser = EnterPage.getUser(username);
-                    if(currentUser == null || !currentUser.isActive())
+                    if(currentUser == null || !currentUser.isActive()) {
                         CLI.print("this username doesn't exist!", ConsoleColors.RED_BOLD);
-                    else if(!group.getUsers().contains(currentUser.getID()))
+                        logger.info(String.format("user %s wants to remove a user which doesn't exist from group.",
+                                user.getUsername()));
+                    }
+                    else if(!group.getUsers().contains(currentUser.getID())) {
                         CLI.print("this username isn't in your group!", ConsoleColors.RED_BOLD);
+                        logger.info(String.format("user %s wants to remove a user which doesn't exist from group.",
+                                user.getUsername()));
+                    }
                     else {
                         group.removeUser(currentUser.getID());
                         user.removeGroup(group);
@@ -121,9 +145,13 @@ public class ShowLists {
     private static void makeNewGroup(User user) {
         String groupName = CLI.getCommand("Enter the group name:", ConsoleColors.BLACK);
         Group newGroup = new Group(groupName);
-        if(user.getGroups().contains(newGroup))
+        if(user.getGroups().contains(newGroup)) {
+            logger.info(String.format("user %s wants to make a group which doesn't exist.", user.getUsername()));
             CLI.print("this group already exists!", ConsoleColors.RED_BOLD);
-        else
+        }
+        else {
+            logger.info(String.format("user %s created a group.", user.getUsername()));
             user.addGroup(newGroup);
+        }
     }
 }

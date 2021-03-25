@@ -4,6 +4,8 @@ import models.ID;
 import models.User;
 import CLI.*;
 import models.media.Message;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.EnterPage.EnterPage;
 
 import java.time.format.DateTimeFormatter;
@@ -13,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 public class PersonalMessage {
+
+    static private final Logger logger = LogManager.getLogger(PersonalMessage.class);
+
     public static void getHelp() {
         CLI.print("", ConsoleColors.BLACK);
         CLI.print("\t\t\t\tpersonal messages", ConsoleColors.BLACK_BOLD);
@@ -22,6 +27,7 @@ public class PersonalMessage {
     public static void logic(User user) {
         while (true) {
             getHelp();
+            logger.info(String.format("user %s checked personal messages page.", user.getUsername()));
             showPersonalMessages(user);
             String username = CLI.getCommand("Enter the username you wanna check your chats together: (or type \"back\")",
                     ConsoleColors.BLACK);
@@ -30,6 +36,7 @@ public class PersonalMessage {
             User curUser = EnterPage.getUser(username);
             if (curUser == null) {
                 CLI.print("this user doesn't exist!", ConsoleColors.RED_BOLD);
+                logger.info(String.format("user %s wants to send an invalid message.", user.getUsername()));
                 continue;
             }
             showMessages(user, curUser);
@@ -75,6 +82,7 @@ public class PersonalMessage {
     public static void showMessages(User user, User curUser) {
         if (curUser.equals(user)) {
             CLI.print("you can't send message to yourself here!", ConsoleColors.RED_BOLD);
+            logger.info(String.format("user %s wants to send invalid message.", user.getUsername()));
             return;
         }
         while (true) {

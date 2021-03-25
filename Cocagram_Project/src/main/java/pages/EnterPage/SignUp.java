@@ -2,10 +2,15 @@ package pages.EnterPage;
 
 import CLI.*;
 import models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 
 public class SignUp {
+
+    static private final Logger logger = LogManager.getLogger(SignUp.class);
+
     public static void logic() {
         String username = getUsername();
 
@@ -30,6 +35,8 @@ public class SignUp {
                 ConsoleColors.BLACK);
 
         new User(username, firstname, lastname, bio, birthDate, email, phoneNumber, password, publicData, lastSeenType);
+
+        logger.info(String.format("user %s registered.", username));
 
         CLI.print("Your account is registered now. don't forget about Coca.", ConsoleColors.GREEN_BOLD);
         EnterPage.logic();
@@ -103,7 +110,7 @@ public class SignUp {
 
     public static String getPhoneNumber() {
         String phoneNumber = CLI.getCommand("Enter your phone number:", ConsoleColors.BLACK);
-        if (!phoneNumber.equals("") && EnterPage.getEmail(phoneNumber) != null) {
+        if (!phoneNumber.equals("") && EnterPage.getPhoneNumber(phoneNumber) != null) {
             CLI.print("This phone number is already registered.", ConsoleColors.RED_BOLD);
             return getPhoneNumber();
         }

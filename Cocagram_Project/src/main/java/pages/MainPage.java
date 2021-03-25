@@ -2,11 +2,16 @@ package pages;
 
 import models.User;
 import CLI.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.Messaging.Messaging;
 import pages.PersonalPage.PersonalPage;
 import pages.Settings.Settings;
 
 public class MainPage {
+
+    static private final Logger logger = LogManager.getLogger(MainPage.class);
+
     static void getHelp() {
         CLI.print("", ConsoleColors.RESET);
         CLI.print("\t\t\t\tmain page", ConsoleColors.BLACK_BOLD);
@@ -21,6 +26,7 @@ public class MainPage {
     public static void logic(User user) {
         while (true) {
             getHelp();
+            logger.info(String.format("user %s checked main page.", user.getUsername()));
             String command = CLI.getCommand("Enter the page you wanna check:", ConsoleColors.RESET);
             switch (command) {
                 case "1":

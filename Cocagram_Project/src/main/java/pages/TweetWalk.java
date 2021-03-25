@@ -4,6 +4,8 @@ import CLI.*;
 import models.User;
 import models.media.Message;
 import models.media.Tweet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.Messaging.Messaging;
 
 import java.time.format.DateTimeFormatter;
@@ -11,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TweetWalk {
+
+    static private final Logger logger = LogManager.getLogger(TweetWalk.class);
+
     public static void getHelp() {
         CLI.print("", ConsoleColors.BLACK);
         CLI.print("\t\t\t\tTweet Walker", ConsoleColors.BLACK_BOLD);
@@ -80,13 +85,19 @@ public class TweetWalk {
                     CLI.print("added to saved messages", ConsoleColors.GREEN_BOLD);
                     break;
                 case "2":
-                    if (tweet.getUpPost() != null)
+                    if (tweet.getUpPost() != null) {
                         CLI.print("you can't retweet a comment!", ConsoleColors.RED_BOLD);
-                    else if (user.getTweets().contains(tweet.getId()))
+                        logger.info(String.format("user %s wants to retweet a comment", user.getUsername()));
+                    }
+                    else if (user.getTweets().contains(tweet.getId())) {
                         CLI.print("you've (re)tweeted this one before!", ConsoleColors.RED_BOLD);
+                        logger.info(String.format("user %s wants to retweet a tweet which has already retweeted.",
+                                user.getUsername()));
+                    }
                     else {
                         user.addToTweets(tweet.getId());
                         CLI.print("you retweeted this tweet!", ConsoleColors.GREEN_BOLD);
+                        logger.info(String.format("user %s retweeted tweet %s.", user.getUsername(), tweet.getId()));
                     }
                     break;
                 case "3":
@@ -105,18 +116,23 @@ public class TweetWalk {
                     tweet.addComment(curComment.getId());
                     CLI.print("you commented successfully!", ConsoleColors.GREEN_BOLD);
                     CLI.print("", ConsoleColors.BLACK);
+                    logger.info(String.format("user %s added a comment on tweet %s.", user.getUsername(), tweet.getId()));
                     break;
                 case "6":
                     showTweets(user, validation(user, tweet.getComments(), false), myTweets);
                     break;
                 case "7":
-                    if (user.getLikedTweets().contains(tweet.getId()))
+                    if (user.getLikedTweets().contains(tweet.getId())) {
                         dislike(user, tweet);
+                        logger.info(String.format("user %s disliked tweet %s.", user.getUsername(), tweet.getId()));
+                    }
                     else {
                         if (tweet.getWriter().equals(user.getID()))
                             CLI.print("don't open a coca for yourself.", ConsoleColors.RED_BOLD);
-                        else
+                        else {
                             like(user, tweet);
+                            logger.info(String.format("user %s disliked tweet %s.", user.getUsername(), tweet.getId()));
+                        }
                     }
                     break;
                 default:

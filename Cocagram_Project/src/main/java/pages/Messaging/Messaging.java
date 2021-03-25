@@ -5,12 +5,17 @@ import models.ID;
 import models.User;
 import models.media.Message;
 import models.media.Tweet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Messaging {
+
+    static private final Logger logger = LogManager.getLogger(Messaging.class);
+
     static void getHelp() {
         CLI.print("", ConsoleColors.RESET);
         CLI.print("\t\t\t\tmessaging", ConsoleColors.BLACK_BOLD);
@@ -23,6 +28,7 @@ public class Messaging {
     public static void logic(User user) {
         while (true) {
             getHelp();
+            logger.info(String.format("user %s checked messaging page.", user.getUsername()));
             String command = CLI.getCommand("Enter your command:", ConsoleColors.BLACK);
             if (command.equals("back"))
                 break;
@@ -60,15 +66,18 @@ public class Messaging {
     public static void sendMessage(User writer, User receiver, String content) {
         if(writer.equals(receiver)) {
             CLI.print("you can't send a message to yourself here!", ConsoleColors.RED_BOLD);
+            logger.info(String.format("user %s wants to send an invalid message.", writer.getUsername()));
             return;
         }
         if(!receiver.isActive()) {
             CLI.print("this user isn't active!", ConsoleColors.RED_BOLD);
+            logger.info(String.format("user %s wants to send an invalid message.", writer.getUsername()));
             return;
         }
         if (!writer.getFollowings().contains(receiver.getID()) && !receiver.getFollowings().contains(writer.getID())) {
             CLI.print(String.format("neither you follow %s nor %s follows you so you can't send message to him/her",
                     receiver.getUsername(), receiver.getUsername()), ConsoleColors.RED_BOLD);
+            logger.info(String.format("user %s wants to send an invalid message.", writer.getUsername()));
             CLI.print("", ConsoleColors.BLACK);
             return;
         }
@@ -76,18 +85,21 @@ public class Messaging {
         if (writer.getBlockList().contains(receiver.getID())) {
             CLI.print(String.format("you blocked user %s so you can't send message to him/her!", writer.getUsername()),
                     ConsoleColors.RED_BOLD);
+            logger.info(String.format("user %s wants to send an invalid message.", writer.getUsername()));
             CLI.print("", ConsoleColors.BLACK);
             return;
         }
         if (receiver.getBlockList().contains(writer.getID())) {
             CLI.print(String.format("user %s blocked you so you can't send message to him/her!", writer.getUsername())
                     , ConsoleColors.RED_BOLD);
+            logger.info(String.format("user %s wants to send an invalid message.", writer.getUsername()));
             CLI.print("", ConsoleColors.BLACK);
             return;
         }
         Message message = new Message(content, writer.getID(), receiver.getID());
         receiver.addToUnreadMessages(message.getId());
         writer.addToMessages(message.getId());
+        logger.info(String.format("user %s sent a message to user %s", writer.getUsername(), receiver.getUsername()));
     }
 
     public static void getHelpSavedMessages() {
@@ -100,6 +112,7 @@ public class Messaging {
     public static void savedMessagesHandling(User user) {
         while (true) {
             getHelpSavedMessages();
+            logger.info(String.format("user %s checked saved messages.", user.getUsername()));
             List<ID> savedMessagesID = user.getSavedMessages();
             List<Message> savedMessages = new ArrayList<>();
             for (ID messageID : savedMessagesID)

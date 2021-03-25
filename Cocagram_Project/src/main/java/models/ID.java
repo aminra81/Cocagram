@@ -3,10 +3,14 @@ package models;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.Objects;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class ID {
+
+    static private final Logger logger = LogManager.getLogger(ID.class);
     private static final File idFile = new File("./src/main/resources/DB/lastID.txt");
     int idNum;
 
@@ -15,9 +19,11 @@ public class ID {
         int lastID = 0;
         try {
             myReader = new Scanner(idFile);
+            logger.info("file lastID.txt opened.");
             lastID = myReader.nextInt() + 1;
             myReader.close();
         } catch (FileNotFoundException e) {
+            logger.error("lastID.txt not found");
             e.printStackTrace();
         }
 
@@ -26,7 +32,9 @@ public class ID {
             myPrinter = new PrintStream(idFile);
             myPrinter.print(lastID);
             myPrinter.close();
+            logger.info("file lastID.txt closed.");
         } catch (FileNotFoundException e) {
+            logger.error("lastID.txt not found!");
             e.printStackTrace();
         }
         this.idNum = lastID;

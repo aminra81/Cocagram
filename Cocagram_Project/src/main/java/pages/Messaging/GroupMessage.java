@@ -5,12 +5,17 @@ import CLI.*;
 import models.Group;
 import models.ID;
 import models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.EnterPage.EnterPage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupMessage {
+
+    static private final Logger logger = LogManager.getLogger(GroupMessage.class);
+
     public static void getHelp() {
         CLI.print("", ConsoleColors.BLACK);
         CLI.print("[1] send to users", ConsoleColors.YELLOW);
@@ -31,8 +36,10 @@ public class GroupMessage {
                     if (username.equals(""))
                         break;
                     User curUser = EnterPage.getUser(username);
-                    if (curUser == null)
+                    if (curUser == null) {
+                        logger.info(String.format("user %s wants to send an invalid message.", user.getUsername()));
                         CLI.print("this user doesn't exist!", ConsoleColors.RED_BOLD);
+                    }
                     else if (!receivers.contains(curUser))
                         receivers.add(curUser);
                 }
@@ -41,10 +48,12 @@ public class GroupMessage {
                 while (true) {
                     String groupName = CLI.getCommand("Enter the group name (or press Enter to break):",
                             ConsoleColors.BLUE);
-                    if(groupName.equals(""))
+                    if (groupName.equals(""))
                         break;
-                    if(!user.getGroups().contains(new Group(groupName)))
+                    if (!user.getGroups().contains(new Group(groupName))) {
                         CLI.print("this group doesn't exist!", ConsoleColors.RED_BOLD);
+                        logger.info(String.format("user %s wants to send an invalid message.", user.getUsername()));
+                    }
                     else
                         for (Group group : user.getGroups())
                             if(group.getGroupName().equals(groupName))

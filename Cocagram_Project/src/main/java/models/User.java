@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class User {
     private ID id;
     private String firstname;
@@ -39,17 +42,21 @@ public class User {
     private List<ID> savedMessages;
     private List<ID> mutedUsers;
 
+    static private final Logger logger = LogManager.getLogger(User.class);
     private static final File dbDirectory = new File("./src/main/resources/DB/Users");
 
     public static User getByID(ID id) {
         try {
             File Data = new File(dbDirectory, id + ".json");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(Data));
+            logger.info(String.format("file %s opened.", Data.getName()));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             User user = gson.fromJson(bufferedReader, User.class);
             bufferedReader.close();
+            logger.info(String.format("file %s closed.", Data.getName()));
             return user;
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.warn(String.format("Exception occurred while trying to get user %s", id));
             e.printStackTrace();
         }
         return null;
@@ -61,10 +68,13 @@ public class User {
             File Data = new File(dbDirectory, this.id + ".json");
             if (!Data.exists())
                 Data.createNewFile();
+            logger.info(String.format("file %s opened.", Data.getName()));
             FileWriter writer = new FileWriter(Data);
             writer.write(gson.toJson(this));
             writer.close();
-        } catch (IOException e) {
+            logger.info(String.format("file %s closed.", Data.getName()));
+        } catch (Exception e) {
+            logger.warn(String.format("Exception occurred while trying to save user %s", this.getId()));
             e.printStackTrace();
         }
     }
@@ -106,6 +116,8 @@ public class User {
         this.saveIntoDB();
     }
 
+    public ID getId() { return id; }
+
     public void addToLikedTweets(ID tweet) {
         this.likedTweets.add(tweet);
         this.saveIntoDB();
@@ -140,9 +152,7 @@ public class User {
         return this.id;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 
     public String getUsername() {
         return username;

@@ -5,13 +5,16 @@ import com.google.gson.GsonBuilder;
 import models.ID;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class Tweet extends Media {
 
+    static private final Logger logger = LogManager.getLogger(Tweet.class);
     private static final File dbDirectory = new File("./src/main/resources/DB/Tweets");
 
     private ID upPost;
@@ -21,11 +24,14 @@ public class Tweet extends Media {
         try {
             File Data = new File(dbDirectory, id + ".json");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(Data));
+            logger.info(String.format("file %s opened.", Data.getName()));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             Tweet tweet = gson.fromJson(bufferedReader, Tweet.class);
             bufferedReader.close();
+            logger.info(String.format("file %s closed.", Data.getName()));
             return tweet;
         } catch (Exception e) {
+            logger.warn(String.format("Exception occurred while trying to get tweet %s", id));
             e.printStackTrace();
         }
         return null;
@@ -37,10 +43,13 @@ public class Tweet extends Media {
             File Data = new File(dbDirectory, this.id + ".json");
             if (!Data.exists())
                 Data.createNewFile();
+            logger.info(String.format("file %s opened.", Data.getName()));
             FileWriter writer = new FileWriter(Data);
             writer.write(gson.toJson(this));
             writer.close();
+            logger.info(String.format("file %s closed.", Data.getName()));
         } catch (IOException e) {
+            logger.warn(String.format("Exception occurred while trying to save tweet %s", this.getId()));
             e.printStackTrace();
         }
     }

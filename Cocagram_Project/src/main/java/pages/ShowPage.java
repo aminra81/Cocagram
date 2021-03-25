@@ -3,11 +3,14 @@ package pages;
 import CLI.*;
 
 import models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pages.Messaging.Messaging;
 
 import java.time.format.DateTimeFormatter;
 
 public class ShowPage {
+    static private final Logger logger = LogManager.getLogger(ShowPage.class);
     private static void getHelp() {
         CLI.print("", ConsoleColors.RESET);
         CLI.print("[1] send message", ConsoleColors.YELLOW);
@@ -20,6 +23,7 @@ public class ShowPage {
 
     public static void logic(User user, User userToBeVisited) {
         if (!userToBeVisited.isActive()) {
+            logger.info(String.format("user %s wants to check the profile of a user which doesn't exist.", user.getUsername()));
             CLI.print("this user isn't active!", ConsoleColors.RED_BOLD);
             MainPage.logic(user);
         }
@@ -96,9 +100,11 @@ public class ShowPage {
         if (user.getMutedUsers().contains(userToBeVisited.getID())) {
             user.removeFromMutedUsers(userToBeVisited.getID());
             CLI.print("you unmuted this user!", ConsoleColors.GREEN_BOLD);
+            logger.info(String.format("user %s unmuted user %s.", user.getUsername(), userToBeVisited.getUsername()));
         } else {
             user.addToMutedUsers(userToBeVisited.getID());
             CLI.print("you muted this user!", ConsoleColors.GREEN_BOLD);
+            logger.info(String.format("user %s muted user %s.", user.getUsername(), userToBeVisited.getUsername()));
         }
     }
 
@@ -106,9 +112,11 @@ public class ShowPage {
         if (user.getBlockList().contains(userToBeVisited.getID())) {
             user.removeFromBlocklist(userToBeVisited.getID());
             CLI.print("you unblocked this user!", ConsoleColors.GREEN_BOLD);
+            logger.info(String.format("user %s unblocked user %s.", user.getUsername(), userToBeVisited.getUsername()));
         } else {
             user.addToBlocklist(userToBeVisited.getID());
             CLI.print("you blocked this user!", ConsoleColors.GREEN_BOLD);
+            logger.info(String.format("user %s blocked user %s.", user.getUsername(), userToBeVisited.getUsername()));
         }
     }
 
@@ -117,14 +125,21 @@ public class ShowPage {
             user.removeFromFollowings(userToBeVisited.getID());
             userToBeVisited.removeFromFollowers(user.getID());
             userToBeVisited.addToNotifications(String.format("user %s unfollowed you!", user.getUsername()));
-        } else if (userToBeVisited.getRequests().contains(user.getID()))
+            logger.info(String.format("user %s unfollowed user %s.", user.getUsername(), userToBeVisited.getUsername()));
+        } else if (userToBeVisited.getRequests().contains(user.getID())) {
+            logger.info(String.format("user %s removed the request to user %s.", user.getUsername(),
+                    userToBeVisited.getUsername()));
             userToBeVisited.removeFromRequests(user.getID());
-        else if (userToBeVisited.isPrivate())
+        }
+        else if (userToBeVisited.isPrivate()) {
             userToBeVisited.addToRequests(user.getID());
+            logger.info(String.format("user %s requested user %s.", user.getUsername(), userToBeVisited.getUsername()));
+        }
         else {
             user.addToFollowings(userToBeVisited.getID());
             userToBeVisited.addToFollowers(user.getID());
             userToBeVisited.addToNotifications(String.format("user %s followed you!", user.getUsername()));
+            logger.info(String.format("user %s followed user %s.", user.getUsername(), userToBeVisited.getUsername()));
         }
     }
 }

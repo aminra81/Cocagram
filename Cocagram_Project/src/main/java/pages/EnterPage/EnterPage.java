@@ -10,7 +10,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class EnterPage{
+
+    static private final Logger logger = LogManager.getLogger(EnterPage.class);
+
     private static void getHelp() {
         CLI.print("type \"sign_in\" to sign in.\n" +
                 "type \"sign_up\" to sign up.", ConsoleColors.YELLOW);
@@ -45,11 +51,15 @@ public class EnterPage{
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             for (File userFile : dbDirectory.listFiles()) {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(userFile));
+                logger.info(String.format("file %s opened!", userFile.getName()));
                 User currentUser = gson.fromJson(bufferedReader, User.class);
+                bufferedReader.close();
+                logger.info(String.format("file %s closed!", userFile.getName()));
                 if(currentUser.getUsername().equals(username))
                     return currentUser;
             }
         } catch (IOException e) {
+            logger.warn("an exception occurred while trying to get user with given username file.");
             e.printStackTrace();
         }
         return null;
@@ -61,11 +71,15 @@ public class EnterPage{
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             for (File userFile : dbDirectory.listFiles()) {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(userFile));
+                logger.info(String.format("file %s opened!", userFile.getName()));
                 User currentUser = gson.fromJson(bufferedReader, User.class);
+                logger.info(String.format("file %s closed!", userFile.getName()));
+                bufferedReader.close();
                 if(currentUser.getPhoneNumber().equals(phoneNumber))
                     return currentUser;
             }
         } catch (IOException e) {
+            logger.warn("an exception occurred while trying to get user with given phone number file.");
             e.printStackTrace();
         }
         return null;
@@ -77,11 +91,15 @@ public class EnterPage{
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             for (File userFile : dbDirectory.listFiles()) {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(userFile));
+                logger.info(String.format("file %s opened!", userFile.getName()));
                 User currentUser = gson.fromJson(bufferedReader, User.class);
+                logger.info(String.format("file %s closed!", userFile.getName()));
+                bufferedReader.close();
                 if(currentUser.getEmail().equals(email))
                     return currentUser;
             }
         } catch (IOException e) {
+            logger.warn("an exception occurred while trying to get user with given email file.");
             e.printStackTrace();
         }
         return null;
