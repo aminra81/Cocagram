@@ -1,0 +1,38 @@
+{
+  "id": {
+    "idNum": 3
+  },
+  "firstname": "c",
+  "lastname": "c",
+  "username": "c",
+  "bio": "",
+  "birthDate": {
+    "year": 2002,
+    "month": 10,
+    "day": 4
+  },
+  "email": "c@gmail.com",
+  "phoneNumber": "",
+  "password": "99",
+  "publicData": true,
+  "isActive": true,
+  "lastSeenType": "Nobody",
+  "followings": [],
+  "followers": [],
+  "blockList": [],
+  "tweets": [],
+  "requestNotifications": [],
+  "likedTweets": [],
+  "messages": [],
+  "unreadMessages": [],
+  "requests": [],
+  "notifications": [],
+  "isPrivate": false,
+  "groups": [],
+  "savedMessages": [
+    {
+      "idNum": 38
+    }
+  ],
+  "mutedUsers": []
+}

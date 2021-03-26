@@ -1,0 +1,25 @@
+{
+  "receiver": {
+    "idNum": 3
+  },
+  "id": {
+    "idNum": 38
+  },
+  "content": "I love you too.",
+  "writer": {
+    "idNum": 3
+  },
+  "datetime": {
+    "date": {
+      "year": 2021,
+      "month": 3,
+      "day": 25
+    },
+    "time": {
+      "hour": 2,
+      "minute": 21,
+      "second": 54,
+      "nano": 597700000
+    }
+  }
+}

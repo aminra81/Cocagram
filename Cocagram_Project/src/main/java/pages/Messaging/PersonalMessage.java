@@ -48,6 +48,8 @@ public class PersonalMessage {
         for (ID message : user.getUnreadMessages()) {
             Message curMessage = Message.getByID(message);
             User sender = User.getByID(curMessage.getWriter());
+            if(!sender.isActive())
+                continue;
             if (unreadCount.containsKey(sender))
                 unreadCount.put(sender, unreadCount.get(sender) + 1);
             else
@@ -66,6 +68,8 @@ public class PersonalMessage {
                 sender = User.getByID(curMessage.getWriter());
             else
                 sender = User.getByID(curMessage.getReceiver());
+            if(!sender.isActive())
+                continue;
             if (!otherSenders.contains(sender) && !unreadCount.containsKey(sender))
                 otherSenders.add(sender);
         }
