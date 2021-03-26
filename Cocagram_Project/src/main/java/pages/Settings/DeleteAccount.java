@@ -52,8 +52,7 @@ public class DeleteAccount {
                 }
             }
         } catch (IOException e) {
-            logger.warn("an exception occurred while deleting messages.");
-            e.printStackTrace();
+            logger.error("an exception occurred while deleting messages.");
         }
     }
 
@@ -77,8 +76,7 @@ public class DeleteAccount {
                     file.delete();
                 }
         } catch (IOException e) {
-            logger.warn("an exception occurred while deleting tweets.");
-            e.printStackTrace();
+            logger.error("an exception occurred while deleting tweets.");
         }
     }
 
@@ -113,8 +111,7 @@ public class DeleteAccount {
                 }
 
         } catch (IOException e) {
-            logger.warn("an exception occurred while deleting user.");
-            e.printStackTrace();
+            logger.error("an exception occurred while deleting user.");
         }
     }
 

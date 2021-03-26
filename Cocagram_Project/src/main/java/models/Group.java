@@ -1,6 +1,7 @@
 package models;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Group {
     private String groupName;
@@ -24,4 +25,7 @@ public class Group {
         Group group = (Group) o;
         return group.getGroupName().equals(getGroupName());
     }
+
+    @Override
+    public int hashCode() { return Objects.hash(groupName); }
 }

@@ -6,6 +6,8 @@ import models.ID;
 import java.io.*;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -27,7 +29,6 @@ public class Message extends Media {
             return message;
         } catch (Exception e) {
             logger.warn(String.format("Exception occurred while trying to get message %s", id));
-            e.printStackTrace();
         }
         return null;
     }
@@ -44,8 +45,7 @@ public class Message extends Media {
             writer.close();
             logger.info(String.format("file %s closed.", Data.getName()));
         } catch (Exception e) {
-            logger.warn(String.format("Exception occurred while trying to save message %s", this.getId()));
-            e.printStackTrace();
+            logger.error(String.format("Exception occurred while trying to save message %s", this.getId()));
         }
     }
 
@@ -70,4 +70,7 @@ public class Message extends Media {
         Message message = (Message) o;
         return message.getId().equals(getId());
     }
+
+    @Override
+    public int hashCode() { return Objects.hash(id); }
 }

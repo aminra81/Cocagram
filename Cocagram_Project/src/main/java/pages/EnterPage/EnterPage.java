@@ -59,8 +59,7 @@ public class EnterPage{
                     return currentUser;
             }
         } catch (IOException e) {
-            logger.warn("an exception occurred while trying to get user with given username file.");
-            e.printStackTrace();
+            logger.error("an exception occurred while trying to get user with given username file.");
         }
         return null;
     }
@@ -79,8 +78,7 @@ public class EnterPage{
                     return currentUser;
             }
         } catch (IOException e) {
-            logger.warn("an exception occurred while trying to get user with given phone number file.");
-            e.printStackTrace();
+            logger.error("an exception occurred while trying to get user with given phone number file.");
         }
         return null;
     }
@@ -99,8 +97,7 @@ public class EnterPage{
                     return currentUser;
             }
         } catch (IOException e) {
-            logger.warn("an exception occurred while trying to get user with given email file.");
-            e.printStackTrace();
+            logger.error("an exception occurred while trying to get user with given email file.");
         }
         return null;
     }

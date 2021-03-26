@@ -68,8 +68,7 @@ public class Explorer{
                     tweets.add(currentTweet);
             }
         } catch (IOException e) {
-            logger.warn("an Exception occurred while loading public user's tweets.");
-            e.printStackTrace();
+            logger.error("an Exception occurred while loading public user's tweets.");
         }
         return tweets;
     }

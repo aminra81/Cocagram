@@ -3,6 +3,7 @@ package models;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Objects;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,6 @@ public class ID {
             myReader.close();
         } catch (FileNotFoundException e) {
             logger.error("lastID.txt not found");
-            e.printStackTrace();
         }
 
         PrintStream myPrinter;
@@ -35,7 +35,6 @@ public class ID {
             logger.info("file lastID.txt closed.");
         } catch (FileNotFoundException e) {
             logger.error("lastID.txt not found!");
-            e.printStackTrace();
         }
         this.idNum = lastID;
     }
@@ -55,4 +54,7 @@ public class ID {
         ID id = (ID) o;
         return id.idNum == idNum;
     }
+
+    @Override
+    public int hashCode() { return Objects.hash(idNum); }
 }

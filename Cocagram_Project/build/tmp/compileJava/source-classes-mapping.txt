@@ -1,31 +1,23 @@
 CLI/ConsoleColors.java
  CLI.ConsoleColors
-models/media/Tweet.java
- models.media.Tweet
-models/Group.java
- models.Group
-models/ID.java
- models.ID
-models/media/Media.java
- models.media.Media
-models/media/Message.java
- models.media.Message
-models/User.java
- models.User
-pages/EnterPage/SignUp.java
- pages.EnterPage.SignUp
+CLI/CLI.java
+ CLI.CLI
+pages/MainPage.java
+ pages.MainPage
 pages/PersonalPage/ShowLists.java
  pages.PersonalPage.ShowLists
 pages/PersonalPage/Notifications.java
  pages.PersonalPage.Notifications
 pages/ShowPage.java
  pages.ShowPage
-CLI/CLI.java
- CLI.CLI
+models/ID.java
+ models.ID
+models/media/Tweet.java
+ models.media.Tweet
 pages/Timeline.java
  pages.Timeline
-pages/EnterPage/SignIn.java
- pages.EnterPage.SignIn
+pages/Settings/Settings.java
+ pages.Settings.Settings
 pages/TweetWalk.java
  pages.TweetWalk
 pages/Explorer.java
@@ -34,19 +26,27 @@ pages/Messaging/PersonalMessage.java
  pages.Messaging.PersonalMessage
 pages/Messaging/GroupMessage.java
  pages.Messaging.GroupMessage
+models/Group.java
+ models.Group
 pages/PersonalPage/EditPage.java
  pages.PersonalPage.EditPage
 Main.java
  Main
+models/User.java
+ models.User
 pages/Settings/DeleteAccount.java
  pages.Settings.DeleteAccount
 pages/PersonalPage/PersonalPage.java
  pages.PersonalPage.PersonalPage
 pages/Messaging/Messaging.java
  pages.Messaging.Messaging
+models/media/Message.java
+ models.media.Message
 pages/EnterPage/EnterPage.java
  pages.EnterPage.EnterPage
-pages/MainPage.java
- pages.MainPage
-pages/Settings/Settings.java
- pages.Settings.Settings
+models/media/Media.java
+ models.media.Media
+pages/EnterPage/SignIn.java
+ pages.EnterPage.SignIn
+pages/EnterPage/SignUp.java
+ pages.EnterPage.SignUp

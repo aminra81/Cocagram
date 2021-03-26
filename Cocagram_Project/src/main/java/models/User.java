@@ -56,8 +56,7 @@ public class User {
             logger.info(String.format("file %s closed.", Data.getName()));
             return user;
         } catch (IOException e) {
-            logger.warn(String.format("Exception occurred while trying to get user %s", id));
-            e.printStackTrace();
+            logger.error(String.format("Exception occurred while trying to get user %s", id));
         }
         return null;
     }
@@ -74,8 +73,7 @@ public class User {
             writer.close();
             logger.info(String.format("file %s closed.", Data.getName()));
         } catch (Exception e) {
-            logger.warn(String.format("Exception occurred while trying to save user %s", this.getId()));
-            e.printStackTrace();
+            logger.error(String.format("Exception occurred while trying to save user %s", this.getId()));
         }
     }
 

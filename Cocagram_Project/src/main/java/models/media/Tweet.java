@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,6 @@ public class Tweet extends Media {
             return tweet;
         } catch (Exception e) {
             logger.warn(String.format("Exception occurred while trying to get tweet %s", id));
-            e.printStackTrace();
         }
         return null;
     }
@@ -49,8 +49,7 @@ public class Tweet extends Media {
             writer.close();
             logger.info(String.format("file %s closed.", Data.getName()));
         } catch (IOException e) {
-            logger.warn(String.format("Exception occurred while trying to save tweet %s", this.getId()));
-            e.printStackTrace();
+            logger.error(String.format("Exception occurred while trying to save tweet %s", this.getId()));
         }
     }
 
@@ -109,4 +108,7 @@ public class Tweet extends Media {
         Tweet tweet = (Tweet) o;
         return tweet.getId().equals(getId());
     }
+
+    @Override
+    public int hashCode() { return Objects.hash(id); }
 }
